@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pixhawk GCS Lab</string>
+    <string name="start_telemetry">Start Telemetry</string>
+    <string name="stop_telemetry">Stop Telemetry</string>
+    <string name="telemetry_stats">Telemetry Stats</string>
+    <string name="recent_messages">Recent Messages</string>
+    <string name="rate_hz">Rate: %.1f Hz</string>
+    <string name="avg_altitude">Avg Altitude: %.2f m</string>
+    <string name="avg_battery">Avg Battery: %.2f V</string>
+    <string name="no_messages">No messages yet</string>
+</resources>
