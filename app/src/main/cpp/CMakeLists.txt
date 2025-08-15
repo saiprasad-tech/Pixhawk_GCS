@@ -30,6 +30,8 @@ add_library(pixhawkcore SHARED
     geospatial/data/GeoidHeights.inl
 
     logparser/LogParser.cpp
+    
+    telemetry/TelemetryEngine.cpp
 )
 
 target_include_directories(pixhawkcore
@@ -40,6 +42,7 @@ target_include_directories(pixhawkcore
         ${CMAKE_CURRENT_SOURCE_DIR}/sensorfusion
         ${CMAKE_CURRENT_SOURCE_DIR}/geospatial
         ${CMAKE_CURRENT_SOURCE_DIR}/logparser
+        ${CMAKE_CURRENT_SOURCE_DIR}/telemetry
         ${CMAKE_CURRENT_SOURCE_DIR}/geospatial/data
 )
 
