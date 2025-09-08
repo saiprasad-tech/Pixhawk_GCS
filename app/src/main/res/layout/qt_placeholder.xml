@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/qt_app_name"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="32dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Qt/QML Interface Placeholder"
+        android:textSize="18sp"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Features to be implemented:"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="• Map with OSM/Google Maps fallback\n• Bluetooth device connection\n• WiFi provisioning\n• Camera streaming\n• Drone telemetry and tracking\n• Settings management"
+        android:textSize="14sp"
+        android:lineSpacingExtra="4dp" />
+
+    <Button
+        android:id="@+id/btnBackToNative"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back to Native UI"
+        android:layout_marginTop="32dp" />
+
+</LinearLayout>

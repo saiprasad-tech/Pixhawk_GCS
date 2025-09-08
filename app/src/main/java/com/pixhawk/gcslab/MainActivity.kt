@@ -1,5 +1,6 @@
 package com.pixhawk.gcslab
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -14,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var systemBridge: SystemBridge
     private lateinit var btnStart: Button
     private lateinit var btnStop: Button
+    private lateinit var btnQtInterface: Button
     private lateinit var tvRateHz: TextView
     private lateinit var tvAvgAltitude: TextView
     private lateinit var tvAvgBattery: TextView
@@ -32,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         // Initialize views
         btnStart = findViewById(R.id.btnStartTelemetry)
         btnStop = findViewById(R.id.btnStopTelemetry)
+        btnQtInterface = findViewById(R.id.btnQtInterface)
         tvRateHz = findViewById(R.id.tvRateHz)
         tvAvgAltitude = findViewById(R.id.tvAvgAltitude)
         tvAvgBattery = findViewById(R.id.tvAvgBattery)
@@ -40,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         // Setup button listeners
         btnStart.setOnClickListener { startTelemetry() }
         btnStop.setOnClickListener { stopTelemetry() }
+        btnQtInterface.setOnClickListener { launchQtInterface() }
         
         // Initialize the native system
         try {
@@ -183,6 +187,11 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) {
             // Silently handle message update errors
         }
+    }
+    
+    private fun launchQtInterface() {
+        val intent = Intent(this, QtMainActivity::class.java)
+        startActivity(intent)
     }
     
     override fun onDestroy() {
