@@ -1,10 +1,12 @@
 package com.pixhawk.gcslab
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import org.json.JSONObject
 import java.text.SimpleDateFormat
@@ -12,12 +14,17 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var systemBridge: SystemBridge
+    private lateinit var personTrackingClient: PersonTrackingClient
     private lateinit var btnStart: Button
     private lateinit var btnStop: Button
+    private lateinit var btnQtInterface: Button
+    private lateinit var btnStartTracking: Button
+    private lateinit var btnStopTracking: Button
     private lateinit var tvRateHz: TextView
     private lateinit var tvAvgAltitude: TextView
     private lateinit var tvAvgBattery: TextView
     private lateinit var tvMessages: TextView
+    private lateinit var tvTrackingStatus: TextView
     
     private val updateHandler = Handler(Looper.getMainLooper())
     private var updateRunnable: Runnable? = null
@@ -28,18 +35,26 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         
         systemBridge = SystemBridge()
+        personTrackingClient = PersonTrackingClient()
         
         // Initialize views
         btnStart = findViewById(R.id.btnStartTelemetry)
         btnStop = findViewById(R.id.btnStopTelemetry)
+        btnQtInterface = findViewById(R.id.btnQtInterface)
+        btnStartTracking = findViewById(R.id.btnStartTracking)
+        btnStopTracking = findViewById(R.id.btnStopTracking)
         tvRateHz = findViewById(R.id.tvRateHz)
         tvAvgAltitude = findViewById(R.id.tvAvgAltitude)
         tvAvgBattery = findViewById(R.id.tvAvgBattery)
         tvMessages = findViewById(R.id.tvMessages)
+        tvTrackingStatus = findViewById(R.id.tvTrackingStatus)
         
         // Setup button listeners
         btnStart.setOnClickListener { startTelemetry() }
         btnStop.setOnClickListener { stopTelemetry() }
+        btnQtInterface.setOnClickListener { launchQtInterface() }
+        btnStartTracking.setOnClickListener { startPersonTracking() }
+        btnStopTracking.setOnClickListener { stopPersonTracking() }
         
         // Initialize the native system
         try {
@@ -185,10 +200,52 @@ class MainActivity : AppCompatActivity() {
         }
     }
     
+    private fun launchQtInterface() {
+        val intent = Intent(this, QtMainActivity::class.java)
+        startActivity(intent)
+    }
+    
+    private fun startPersonTracking() {
+        btnStartTracking.isEnabled = false
+        tvTrackingStatus.text = "Starting tracking..."
+        
+        personTrackingClient.startTracking { success, message ->
+            btnStartTracking.isEnabled = true
+            
+            if (success) {
+                btnStopTracking.isEnabled = true
+                tvTrackingStatus.text = "✅ $message"
+                Toast.makeText(this, "Person tracking started", Toast.LENGTH_SHORT).show()
+            } else {
+                tvTrackingStatus.text = "❌ $message"
+                Toast.makeText(this, "Failed to start tracking: $message", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+    
+    private fun stopPersonTracking() {
+        btnStopTracking.isEnabled = false
+        tvTrackingStatus.text = "Stopping tracking..."
+        
+        personTrackingClient.stopTracking { success, message ->
+            btnStopTracking.isEnabled = true
+            
+            if (success) {
+                btnStartTracking.isEnabled = true
+                tvTrackingStatus.text = "⏹️ $message"
+                Toast.makeText(this, "Person tracking stopped", Toast.LENGTH_SHORT).show()
+            } else {
+                tvTrackingStatus.text = "❌ $message"
+                Toast.makeText(this, "Failed to stop tracking: $message", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+    
     override fun onDestroy() {
         super.onDestroy()
         if (isRunning) {
             stopTelemetry()
         }
+        personTrackingClient.cleanup()
     }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Pixhawk GCS Lab</string>
+    <string name="qt_app_name">Pixhawk GCS</string>
     <string name="start_telemetry">Start Telemetry</string>
     <string name="stop_telemetry">Stop Telemetry</string>
     <string name="telemetry_stats">Telemetry Stats</string>
@@ -9,4 +10,18 @@
     <string name="avg_altitude">Avg Altitude: %.2f m</string>
     <string name="avg_battery">Avg Battery: %.2f V</string>
     <string name="no_messages">No messages yet</string>
+    
+    <!-- Qt/QML Interface strings -->
+    <string name="connect">Connect</string>
+    <string name="map">Map</string>
+    <string name="camera">Camera</string>
+    <string name="settings">Settings</string>
+    <string name="bluetooth_scan">Scan for Devices</string>
+    <string name="wifi_setup">WiFi Setup</string>
+    <string name="track_person">Track Person</string>
+    <string name="stop_tracking">Stop Tracking</string>
+    <string name="google_maps_key">Google Maps API Key</string>
+    <string name="pi_host">Raspberry Pi Host</string>
+    <string name="camera_url">Camera Stream URL</string>
+    <string name="telemetry_port">Telemetry Port</string>
 </resources>
